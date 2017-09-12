@@ -1,0 +1,80 @@
+#particles-js {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+header {
+  .top-bar {
+    @include xy-grid-container;
+
+    .menu .menu-text { padding: 0; }
+  }
+  .top-bar,
+  .top-bar ul {
+    background-color: transparent;
+  }
+  .top-bar-container {
+    background-color: $body-background;
+    border-bottom: 1px solid $ubhacking-color-java;
+  }
+}
+
+.notifications-container {
+  @include xy-grid-container();
+
+  .notifications {
+    @include xy-grid(vertical);
+
+    .notification {
+      @include xy-cell();
+
+      .callout {
+        background-color: $ubhacking-color-java-alpha-5;
+        border: 1px solid $white;
+        color: $white;
+        margin: .5rem 0 0;
+
+        .close-button {
+          color: $light-gray;
+
+          &:focus,
+          &:hover {
+            color: $medium-gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+main {
+  h2 { text-align: center };
+
+  & > section { padding: 3rem 0; }
+}
+
+footer {
+  $footer-border: 1px solid $ubhacking-color-java;
+
+  background-color: $black;
+  border: {
+    top: $footer-border;
+    bottom: $footer-border;
+  }
+  margin-top: 2rem;
+
+  a { padding: .5rem; }
+
+  p { margin: .25rem 0; }
+
+  ul {
+    margin: 0;
+
+    li {
+      display: inline-block;
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{% extends "base/base.html" %}
+{% load static from staticfiles %}
+{% block body_class %}home{% endblock %}
+
+{% block header %}
+  <header id="header">
+    <h1 class="show-for-sr">UB Hacking 2017</h1>
+
+    <div class="grid-y grid-frame text-center">
+      {# Navbar #}
+      <div class="shrink cell text-left">
+        {% include "marketing/_navbar.html" %}
+      </div>
+
+      {# Logo #}
+      <div class="auto cell logo"></div>
+
+      {# Date #}
+      <div class="shrink cell">
+        <div class="event-date">November 4&ndash;5, 2017</div>
+      </div>
+
+      {# Buttons #}
+      <div class="shrink cell">
+        <div class="large button-group align-center">
+          {% if current_user.is_authenticated %}
+            <a href="#" class="button">Dashboard</a>
+            <a href="#" class="button">Log Out</a>
+          {% else %}
+            <a href="#" class="button">Log In</a>
+            <a href="#" class="button">Register</a>
+          {% endif %}
+        </div>
+
+        <a href="#main" class="button hollow scroll-to-main" data-smooth-scroll>▼</a>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block main %}
+  <main id="main" class="text-justify">
+    <section id="about">
+      <div class="grid-container grid-container-padded">
+        <h2>About</h2>
+
+        <div class="grid-y">
+          <p class="cell">
+            UB Hacking is University at Buffalo's official student-run hackathon.
+            Students are invited to gather at our event to create cool and innovative
+            projects within 24 hours and showcase their achievements.
+            Just bring your laptop (and other personal hygiene products) and we'll
+            prepare the food and swag for a memorable weekend!
+          </p>
+          <div class="cell">
+            <dl class="grid-x align-spaced">
+              <div class="medium-5 large-4 cell">
+                <dt>When?</dt>
+                <dd>
+                  November 4&ndash;5, 2017
+                  <br>
+                  See the <a href="#schedule">schedule</a> for details, including times.
+                </dd>
+              </div>
+              <div class="medium-5 large-4 cell">
+                <dt>Where?</dt>
+                <dd>
+                  Davis Hall, at the University at Buffalo (see map).
+                  <br>
+                  Address:
+                  <em>
+                    Davis Hall,
+                    White Rd,
+                    Amherst, NY 14260
+                  </em>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div id="map"></div>
+    </section>
+
+    <section id="schedule">
+      <div class="grid-container grid-container-padded">
+        <h2>Schedule</h2>
+
+        {# include "_schedule.html" #}
+        <p class="lead">Coming soon!</p>
+        <p>
+          The event starts on the morning of November 4, and continues overnight into the following day.
+          We'll give you a better idea of what we have planned shortly; stay tuned!
+        </p>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="grid-container grid-container-padded">
+        <h2>FAQ</h2>
+
+        <dl class="grid-x grid-margin-x grid-margin-y grid-padding-x grid-padding-y medium-up-2">
+          {% for faq in faqs %}
+            <div class="cell">
+              <dt>{{ faq.question }}</dt>
+              <dd>{{ faq.answer }}</dd>
+            </div>
+          {% endfor %}
+        </dl>
+      </div>
+    </section>
+
+    <section id="sponsors">
+      <div class="grid-container grid-container-padded">
+        <h2>Sponsors</h2>
+
+        <div class="grid-x">
+          <p class="cell">
+            If you would like to come on board as a sponsor for UB Hacking 2017, please review
+            <a href="{% static 'docs/sponsorship.pdf' %}">our sponsorship packet</a>
+            and reach out to us!
+          </p>
+
+          {# TODO: include the sponsors and logos etc. when available #}
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
+
+{% block extra_javascript %}
+  <script>
+    function ubhackingInitMap() {
+      var position = {lat: 43.002662, lng: -78.787189};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 17,
+        center: position
+      });
+      new google.maps.Marker({
+        position: position,
+        map: map,
+        title: 'Davis Hall'
+      });
+    }
+  </script>
+  <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNk6tVqWznQi4yELJ0ELggQnWHAL83Apk&callback=ubhackingInitMap"
+      async defer></script>
+{% endblock %}

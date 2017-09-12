@@ -1,0 +1,65 @@
+{% load static from staticfiles %}
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UB Hacking 2017</title>
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  </head>
+  <body class="{% block body_class %}home{% endblock %}">
+    <div id="particles-js"></div>
+
+    {% block header %}
+    <header id="header">
+      <h1 class="show-for-sr">UB Hacking 2017</h1>
+
+      {% include "_navbar.html" %}
+    </header>
+    {% endblock %}
+
+    {# Notifications #}
+    {% if messages %}
+      <div class="notifications-container">
+        <div class="notifications">
+          {% for message in messages %}
+            <div class="notification">
+              <div class="callout" data-closable>
+                <button class="close-button" aria-label="Close alert" type="button" data-close>
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <p>{{ message }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% block main %}{% endblock %}
+
+    <footer>
+      <div class="grid-container grid-container-padded">
+        <div class="grid-y text-center">
+          <ul class="no-bullet">
+            <li><a href="mailto:contact@ubhacking.com"><i class="fa fa-envelope"></i></a></li>
+            <li><a href="https://www.facebook.com/UBHacking"><i class="fa fa-facebook-square"></i></a></li>
+            <li><a href="https://twitter.com/UBHacking"><i class="fa fa-twitter-square"></i></a></li>
+          </ul>
+          <p class="cell">&copy; UB Hacking 2017</p>
+          <p class="cell"><a href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{% static 'vendor/particle/particles.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+
+    {% block extra_javascript %}{% endblock %}
+  </body>
+</html>
