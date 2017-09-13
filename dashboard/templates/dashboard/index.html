@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+
+{% block main %}
+  <main class="grid-container grid-container-padded">
+    <h2>Dashboard</h2>
+
+    <div class="grid-x grid-padding-x">
+      <p class="lead cell">Hello {{ request.user.first_name }}!</p>
+
+      {% if is_hacker %}
+        {# TODO: move style out of HTML page #}
+        <p class="cell text-center" style="color: #11aac5; font-style: italic;">
+          Acceptance status: {{ request.user.profile.get_status_display }}
+        </p>
+      {% endif %}
+
+      <p class="cell">
+        <span class="button-group align-center">
+          <a href="{% url 'dashboard:edit-profile' %}" class="hollow button">Edit your profile</a>
+        </span>
+      </p>
+
+
+      {% if is_organizer %}
+      {% endif %}
+      {% comment %}
+        <div class="cell">
+          <hr>
+          <p>Organizer links (more coming soon):</p>
+          <ul>
+            <li><a href="{{ url_for('users.list_users') }}">List users</a></li>
+            <li><a href="{{ url_for('users.list_invitations') }}">List pending invitations</a></li>
+          </ul>
+        </div>
+      {% endif %}{% endcomment %}
+
+      {# TODO: show application status for hackers #}
+
+      {# TODO: show links to things the user's roles allow access to #}
+    </div>
+  </main>
+{% endblock %}

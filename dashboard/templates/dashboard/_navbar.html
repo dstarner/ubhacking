@@ -1,4 +1,4 @@
-<nav data-sticky-container data-smooth-scroll>
+<nav data-sticky-container>
   <div data-sticky data-options="marginTop:0;" style="width:100%" data-sticky-on="small">
     <div class="title-bar" data-responsive-toggle="responsive-menu">
       <button class="menu-icon" data-toggle="responsive-menu"></button>
@@ -10,27 +10,17 @@
         <div class="top-bar-left hide-for-small-only">
           <ul class="menu">
             <li class="menu-text">
-              <a href="#header">UB Hacking 2017</a>
+              <a href="{% url 'index' %}">UB Hacking 2017</a>
             </li>
           </ul>
         </div>
         <div class="top-bar-right">
           <ul class="menu vertical medium-horizontal">
-            <li><a href="#about">About</a></li>
-            <li><a href="#schedule">Schedule</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#sponsors">Sponsors</a></li>
+            <li><a href="{% url 'dashboard:index' %}">Dashboard</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </nav>
-
-<a id="mlh-trust-badge"
-   href="https://mlh.io/seasons/na-2018/events?utm_source=na-2018&utm_medium=TrustBadge&utm_campaign=na-2018&utm_content=black"
-   target="_blank"
-   rel="noopener">
-  <img src="https://s3.amazonaws.com/logged-assets/trust-badge/2018/black.svg"
-       alt="Major League Hacking 2018 Hackathon Season">
-</a>

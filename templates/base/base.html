@@ -7,10 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UB Hacking 2017</title>
     <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    {% block extra_css %}{% endblock%}
   </head>
   <body class="{% block body_class %}home{% endblock %}">
     <div id="particles-js"></div>
@@ -19,11 +22,11 @@
     <header id="header">
       <h1 class="show-for-sr">UB Hacking 2017</h1>
 
-      {% include "_navbar.html" %}
+      {% include "dashboard/_navbar.html" %}
     </header>
     {% endblock %}
 
-    {# Notifications #}
+    <!--Notifications-->
     {% if messages %}
       <div class="notifications-container">
         <div class="notifications">

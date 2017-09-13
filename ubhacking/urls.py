@@ -13,12 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from marketing.urls import urlpatterns as marketing_routes
 from django.conf import settings
 
 urlpatterns = [
+    url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
+    url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^admin/', admin.site.urls),
 ] + marketing_routes
 

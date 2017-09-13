@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+
+{% block main %}
+
+  <main class="grid-container grid-container-padded">
+    <h2>Log In</h2>
+
+    <div class="grid-x grid-padding-x">
+      <form class="cell" method="post" data-abide novalidate>
+        {% csrf_token %}
+
+        <fieldset class="fieldset">
+          <legend>Credentials</legend>
+
+          {% render_field form.email required=True type='email' placeholder='my@email.com' error_text='Enter a valid email address.' %}
+          <p class="help-text">Don't have an account? <a href="{% url 'register' %}">Register</a>!</p>
+
+          {% render_field form.password required=True placeholder='Password' error_text='Enter your password.' %}
+          <p class="help-text">Forgot your password? <a href="{% url 'forgot-password' %}">Reset it</a>!</p>
+
+        </fieldset>
+
+        <button class="button expanded">Log In</button>
+      </form>
+    </div>
+  </main>
+{% endblock %}

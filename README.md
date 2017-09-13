@@ -28,3 +28,20 @@ of it, and then install the node dependencies. **You should never run this more
 than once**.
 
 ### Handy Makefile
+
+.select2-results__option {
+  color: black;
+}
+
+.select2-container {
+  margin-left: 1em;
+}
+
+.select2-selection {
+  padding: 0.41667rem !important;
+  background-color: rgba(254, 254, 254, 0.7) !important;
+
+  &:hover {
+    background-color: white !important;
+  }
+}

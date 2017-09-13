@@ -1,0 +1,119 @@
+{% extends "base/base.html" %}
+{% load static from staticfiles %}
+
+{% load widget_tweaks %}
+{% load ubhacking %}
+
+{%block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/select2.css' %}"/>
+{% endblock %}
+
+{% block main %}
+  <main class="grid-container grid-container-padded">
+    <h2>Edit Your Profile</h2>
+
+    <div class="grid-x grid-padding-x">
+      <form class="cell" method="post" enctype="multipart/form-data" data-abide novalidate>
+        {% csrf_token %}
+
+        <fieldset class="fieldset">
+          <legend>Account Information</legend>
+
+          <div class="grid-x grid-margin-x">
+            <label class="cell">Email Address
+              {% render_field form.email type='email' placeholder='Email Address' value=request.user.email %}
+            </label>
+
+            <label class="cell medium-6">
+              New Password
+              {% render_field form.password placeholder='Password' %}
+            </label>
+            <label class="cell medium-6">Re-type New Password
+              {% render_field form.retype_password placeholder='Retype Password' %}
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Basic Information</legend>
+
+          <div class="grid-x grid-margin-x">
+            <label class="cell medium-6">First Name
+              {% render_field form.first_name placeholder='First Name' value=request.user.first_name %}
+            </label>
+            <label class="cell medium-6">First Name
+              {% render_field form.last_name placeholder='Last Name' value=request.user.last_name %}
+            </label>
+            <label class='large-4 cell'>School Name
+              <select class="select2" name="school_name" id="id_school_name">
+                {% for choice in form.school_name.field.choices %}
+                  <option {% if request.user.profile.school == choice.0%}selected{% endif %} value='{{choice.0}}'>{{choice.1}}</option>
+                {% endfor %}
+              </select>
+            </label>
+            <label class='medium-6 large-4 cell'>School Major
+              {% render_field form.school_major placeholder='School Major' value=request.user.profile.major %}
+            </label>
+
+            <label class='medium-6 large-4 cell'>School Grade
+              <select name='class_standing' id="id_class_standing">
+                {% for choice in form.class_standing.field.choices %}
+                  <option {% if request.user.profile.grade == choice.0%}selected{% endif %} value='{{choice.0}}'>{{choice.1}}</option>
+                {% endfor %}
+              </select>
+
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Logistics</legend>
+
+          <div class="grid-x grid-margin-x">
+            <label class='cell medium-6'>Dietary Restrictions
+              <textarea name="dietary_restrictions" cols="40" rows="5" value="None" placeholder="Dietary Restrictions" required="" id="id_dietary_restrictions">{{request.user.profile.dietary_restrictions}}</textarea>
+            </label>
+            <label class='cell medium-6'>T-Shirt Size
+              <select name='shirt_size' id="id_shirt_size">
+                {% for choice in form.shirt_size.field.choices %}
+                  <option {% if request.user.profile.shirt_size == choice.0%}selected{% endif %} value='{{choice.0}}'>{{choice.1}}</option>
+                {% endfor %}
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Other</legend>
+            <label class="button hollow" for="resume">Upload Résumé</label>
+            {% render_field form.resume class='show-for-sr' id='resume' accept='.pdf, application/pdf' %}
+            {% if request.user.profile.resume %}
+              <label>Current Resume: <a href="{{ request.user.profile.resume.url }}">{{ request.user.profile.resume|filename }}</a></label>
+            {% endif %}
+            <br/>
+
+            <label style='margin-bottom: 0'>
+              <input type="checkbox" name="travel_reimbursement" {% if request.user.profile.travel %}checked{%endif%} id="id_travel_reimbursement">
+              (Non-UB students only) I would like to be considered for travel reimbursement.
+            </label>
+        </fieldset>
+
+        <button class="button expanded">Update</button>
+      </form>
+    </div>
+  </main>
+{% endblock %}
+
+{% block extra_javascript %}
+  <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <script src="{% static 'js/resume_upload.js' %}"></script>
+  <script>
+    $(function() {
+    	$('.select2').select2({
+        placeholder: 'School Name',
+        width: 'element'
+      });
+    });
+  </script>
+{% endblock %}

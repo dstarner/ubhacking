@@ -4,7 +4,7 @@
   "description": "UB Hacking repository",
   "main": "index.js",
   "scripts": {
-    "build-css": "node-sass --include-path node_modules assets/src/scss/app.scss assets/dist/css/app.css",
+    "build-css": "sh assets/src/scss/build-css.sh",
     "build-js": "webpack"
   },
   "author": "",

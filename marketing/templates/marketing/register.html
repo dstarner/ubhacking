@@ -1,0 +1,114 @@
+{% extends "base/base.html" %}
+{% load static from staticfiles %}
+
+{% load widget_tweaks %}
+
+{%block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/select2.css' %}"/>
+{% endblock %}
+
+{% block main %}
+  <main class="grid-container grid-container-padded">
+    <h2>Register</h2>
+
+    <div class="grid-x grid-padding-x">
+      <form class="cell" method="post" enctype="multipart/form-data" data-abide novalidate>
+        {% csrf_token %}
+
+        <fieldset class="fieldset">
+          <legend>Account Information</legend>
+
+          <div class="grid-x grid-margin-x">
+            <label class="cell">Email Address
+              {% render_field form.email type='email' placeholder='Email Address' %}
+            </label>
+
+            <label class="cell medium-6">
+              Password
+              {% render_field form.password placeholder='Password' %}
+            </label>
+            <label class="cell medium-6">Re-type Password
+              {% render_field form.retype_password placeholder='Retype Password' %}
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Basic Information</legend>
+
+          <div class="grid-x grid-margin-x">
+            <label class="cell medium-6">First Name
+              {% render_field form.first_name placeholder='First Name' %}
+            </label>
+            <label class="cell medium-6">First Name
+              {% render_field form.last_name placeholder='Last Name' %}
+            </label>
+            <label class='large-4 cell'>School Name
+              {% render_field form.school_name class='select2' list='schools' %}
+            </label>
+            <label class='medium-6 large-4 cell'>School Major
+              {% render_field form.school_major placeholder='School Major' %}
+            </label>
+
+            <label class='medium-6 large-4 cell'>School Grade
+              {% render_field form.class_standing class='medium-6 large-4 cell' placeholder='Current Grade' %}
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Logistics</legend>
+
+          <div class="grid-x grid-margin-x">
+            <label class='cell medium-6'>Dietary Restrictions
+              {% render_field form.dietary_restrictions placeholder='Dietary Restrictions' %}
+            </label>
+            <label class='cell medium-6'>T-Shirt Size
+              {% render_field form.shirt_size placeholder='Shirt Size' %}
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Other</legend>
+            <label class="button hollow" for="resume">Upload Résumé</label>
+            {% render_field form.resume class='show-for-sr' id='resume' accept='.pdf, application/pdf' %}
+
+            <label style='margin-bottom: 0'>
+              {{ form.travel_reimbursement }}(Non-UB students only) I would like to be considered for travel reimbursement.
+            </label>
+
+          <label style='margin-bottom: 0'>
+            {{ form.data_sharing }}
+            I agree to the terms of both the
+            <a href="https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions">
+              MLH Contest Terms and Conditions
+            </a>
+            and the
+            <a href="https://mlh.io/privacy">MLH Privacy Policy</a>. <small>(*)</small>
+          </label>
+          <p class="help-text" style="margin-top: 0;">
+            Please note that you may receive pre and post-event informational e-mails
+            and occasional messages about hackathons from MLH as per the MLH Privacy Policy.
+          </p>
+        </fieldset>
+
+        <button class="button expanded">Register</button>
+      </form>
+    </div>
+  </main>
+{% endblock %}
+
+{% block extra_javascript %}
+  <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <script src="{% static 'js/resume_upload.js' %}"></script>
+  <script>
+    $(function() {
+    	$('.select2').select2({
+        placeholder: 'School Name',
+        width: 'element'
+      });
+    });
+  </script>
+{% endblock %}
