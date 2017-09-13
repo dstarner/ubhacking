@@ -1,6 +1,12 @@
 import os
 from django.conf import settings
 
+def get_choice(desired, choices):
+    for choice in choices:
+        if choice[1] == desired:
+            return choice[0]
+    return ""
+
 CLASS_STANDING_CHOICES = (
     (0, 'High School'),
     (1, 'Freshman'),

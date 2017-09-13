@@ -1,28 +1,48 @@
 {% extends "base/base.html" %}
+{% load ubhacking %}
 
 {% block main %}
   <main class="grid-container grid-container-padded">
     <h2>Dashboard</h2>
 
-    <div class="grid-x grid-padding-x">
+    <div class="grid-x grid-padding-x grid-margin-x" style="margin-left: 5px; margin-right: 5px;">
       <p class="lead cell">Hello {{ request.user.first_name }}!</p>
 
       {% if is_hacker %}
-        {# TODO: move style out of HTML page #}
-        <p class="cell text-center" style="color: #11aac5; font-style: italic;">
-          Acceptance status: {{ request.user.profile.get_status_display }}
-        </p>
+        <div class="large-6 small-12">
+          <p class="lead cell">Your Account</p>
+          <p class="cell text-center" style="color: #11aac5; font-style: italic;">
+            Acceptance status: {{ request.user.profile.get_status_display }}
+          </p>
+          {% if request.user.profile.get_status_display|can_change_acception %}
+            <p class="cell">
+              <span class="button-group align-center">
+                <a href="{% url 'dashboard:decline-invite' %}" class="hollow button">Decline</a>
+                {% if has_space %}
+                  <a href="{% url 'dashboard:accept-invite' %}" class="button">Accept</a>
+                {% endif %}
+              </span>
+            </p>
+          {% endif %}
+          <p class="cell">
+            <span class="button-group align-center">
+              <a href="{% url 'dashboard:edit-profile' %}" class="hollow button">Edit your profile</a>
+            </span>
+          </p>
+        </div>
+
+        <div class="large-6 small-12">
+          <p class="lead cell">My Team</p>
+        </div>
+
       {% endif %}
-
-      <p class="cell">
-        <span class="button-group align-center">
-          <a href="{% url 'dashboard:edit-profile' %}" class="hollow button">Edit your profile</a>
-        </span>
-      </p>
-
 
       {% if is_organizer %}
+        <div class="fieldset large-12 medium-12">
+          <p class="lead cell">Organizer Portal</p>
+        </div>
       {% endif %}
+
       {% comment %}
         <div class="cell">
           <hr>
